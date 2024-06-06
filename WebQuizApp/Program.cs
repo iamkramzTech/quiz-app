@@ -1,3 +1,5 @@
+using WebQuizApp.Services;
+
 namespace WebQuizApp
 {
     public class Program
@@ -8,6 +10,8 @@ namespace WebQuizApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddHttpClient<TriviaService>();
 
             var app = builder.Build();
 
@@ -29,10 +33,16 @@ namespace WebQuizApp
             // If it has any authorization middleware, it should go here.
             // app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Quiz}/{action=StartQuiz}/{id?}");
 
+            app.UseEndpoints(endPoints =>
+            {
+                endPoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Quiz}/{action=QuizSettings}/{id?}");
+            });
             app.Run();
         }
     }

@@ -1,0 +1,49 @@
+﻿<!-- Views/Quiz/Quiz.cshtml -->
+@model List<WebQuizApp.Models.QuestionModel>
+<h1>Quiz</h1>
+@if(Model!=null)
+{
+<div>
+    <h2>Time Remaining: <span id="timer"></span></h2>
+    <form id="quiz-form" asp-action="Quiz" method="post">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div>
+                <p>@Model[i].Text</p>
+                @foreach (var answer in Model[i].IncorrectAnswers)
+                {
+                    <input type="radio" name="userAnswers[@i]" value="@answer" required /> @answer
+
+                    <br />
+                }
+                <input type="radio" name="userAnswers[@i]" value="@Model[i].CorrectAnswer" required /> @Model[i].CorrectAnswer<br />
+            </div>
+        }
+        <button type="submit">Submit</button>
+    </form>
+</div>
+}
+else
+{
+    <p>No questions available. Please try again later.</p>
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const countdownTime = @ViewBag.Countdown * 60; // Convert minutes to seconds
+        const timerDisplay = document.getElementById('timer');
+        let timeRemaining = countdownTime;
+
+        const intervalId = setInterval(() => {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            if (timeRemaining > 0) {
+                timeRemaining--;
+            } else {
+                clearInterval(intervalId);
+                document.getElementById('quiz-form').submit();
+            }
+        }, 1000);
+    });
+</script>

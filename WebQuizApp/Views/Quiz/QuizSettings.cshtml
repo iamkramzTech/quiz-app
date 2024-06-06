@@ -1,0 +1,38 @@
+﻿@model WebQuizApp.Models.QuestionModel;
+<h1>Quiz Settings</h1>
+<form asp-action="StartQuiz" method="post">
+    <div>
+        <label for="numOfQuestions">Number of Questions:</label>
+        <input type="number" id="numOfQuestions" name="NumOfQuestions" min="1" max="50" required />
+    </div>
+    <div>
+        <label for="category">Category:</label>
+        <select id="category" name="Category">
+            <option value="9">General Knowledge</option>
+            <option value="18">Science: Computers</option>
+            <option value="10">Entertainment: Books</option>
+            <!-- Add other categories as needed -->
+        </select>
+    </div>
+    <div>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" name="Difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+    </div>
+    <div>
+        <label for="type">Type:</label>
+        <select id="type" name="Type">
+            <option value="0">Any Type</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True / False</option>
+        </select>
+    </div>
+    <div>
+        <label for="countdown">Countdown Time (minutes):</label>
+        <input type="number" id="countdown" name="Countdown" min="1" max="60" value="2" required />
+    </div>
+    <button type="submit">Start Quiz</button>
+</form>
