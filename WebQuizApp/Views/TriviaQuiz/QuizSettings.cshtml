@@ -1,0 +1,38 @@
+﻿@model WebQuizApp.Models.TriviaSettingsModel
+<h1>Quiz Settings</h1>
+<form asp-controller="TriviaQuiz" asp-action="StartQuiz" method="post">
+    <div>
+        <label asp-for="NumOfQuestion">Number of Questions:</label>
+        <input asp-for="NumOfQuestion" type="number" id="numOfQuestions" name="NumOfQuestion" min="1" max="50" required />
+    </div>
+    <div>
+        <label asp-for="Category">Category:</label>
+        <select asp-for="Category" id="category" name="Category">
+            <option value="9">General Knowledge</option>
+            <option value="18">Science: Computers</option>
+            <option value="10">Entertainment: Books</option>
+            <!-- Add other categories as needed -->
+        </select>
+    </div>
+    <div>
+        <label asp-for="Difficulty">Difficulty:</label>
+        <select asp-for="Difficulty" name="Difficulty" id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Type">Type:</label>
+        <select asp-for="Type" id="type" name="Type">
+            <option value="0">Any Type</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True / False</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Countdown">Countdown Time (minutes):</label>
+        <input asp-for="Countdown" type="number" id="countdown" name="Countdown" min="1" max="60" value="2" required />
+    </div>
+    <input type="submit" value="Start Quiz" asp-action="StartQuiz"/>
+</form>

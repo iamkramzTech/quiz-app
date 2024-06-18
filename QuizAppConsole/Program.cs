@@ -34,9 +34,12 @@ namespace QuizAppConsole
                 // Read the response content as a string
                 var responseBody = await httpResponse.Content.ReadAsStringAsync();
 
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
                 // Deserialize the JSON response to TriviaResponse object
-               var triviaResponse = JsonSerializer.Deserialize<TriviaResponse>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive=true});
-
+                var triviaResponse = JsonSerializer.Deserialize<TriviaResponse>(responseBody, options);
                 if (triviaResponse == null || triviaResponse.Results == null)
                 {
                     Console.WriteLine("No questions found or error in the response.");
