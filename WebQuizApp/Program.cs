@@ -10,10 +10,18 @@ namespace WebQuizApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddMvc();
 
-           // Add session services
-            builder.Services.AddSession();
+            //Configure the distributed memory cache
+            builder.Services.AddDistributedMemoryCache();
+
+            // Add session services
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); //adjust timeout as needed
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             // Add TempData providers
             builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();

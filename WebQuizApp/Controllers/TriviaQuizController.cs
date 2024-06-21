@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WebQuizApp.Models;
 using WebQuizApp.Services;
 
@@ -7,6 +8,7 @@ namespace WebQuizApp.Controllers
     public class TriviaQuizController : Controller
     {
         private readonly TriviaService _triviaService;
+
         public TriviaQuizController(TriviaService triviaService)
         {
             _triviaService = triviaService;
@@ -20,62 +22,49 @@ namespace WebQuizApp.Controllers
         public async Task<IActionResult> StartQuiz(TriviaSettingsModel settings)
         {
             var questions = await _triviaService.GetQuestionsAsync(settings.NumOfQuestion, settings.Category, settings.Difficulty, settings.Type);
-            var correctAnswer = questions.Select(q => q.Correct_Answer).ToList();
-            TempData["Correct_Answers"] = correctAnswer;
-            TempData.Keep("Correct_Answers");
-            ViewBag.Countdown = settings.Countdown;
-            return View("StartQuiz", questions);
-        }
 
-        //[HttpPost]
-        //public IActionResult Result(List<string> userAnswers)
-        //{
-        //    var correct_Answer = TempData["Correct_Answer"] as List<string>;
-        //    int score = 0;
-        //    for (int i = 0; i < userAnswers.Count; i++)
-        //    {
-        //        if (userAnswers[i] == correct_Answer[i])
-        //        {
-        //            score++;
-        //        }
-        //    }
-        //    ViewBag.Score = score;
-        //    return View("Result", userAnswers);
-        //}
-
-        [HttpPost]
-        public IActionResult Result(List<string> userAnswers)
-        {
-            // Retrieve the correct answers from TempData
-            var correct_Answer = TempData.Peek("Correct_Answers") as List<string>;
-
-            // Initialize the score counter
-            var score = 0;
-
-            // Ensure that both userAnswers and correct_Answers are not null
-            if (userAnswers != null && correct_Answer != null)
+            var model = new QuizViewModel
             {
-                for (int i = 0; i < userAnswers.Count; i++)
+                TriviaQuestions = questions
+            };
+            ViewBag.Countdown = settings.Countdown;
+            return View("StartQuiz", model);
+        }
+        //[HttpGet]
+        //public IActionResult SubmitAnswers()
+        //{
+        //    return View(new QuizViewModel());
+        //}
+        [HttpPost]
+        public IActionResult Result(QuizViewModel model)
+        {
+            // Debugging: Log model data
+           // Console.WriteLine("Questions: " + (model.TriviaQuestions != null ? string.Join(", ", model.TriviaQuestions.Select(q => q.Question)) : "null"));
+            //Console.WriteLine("UserAnswers: " + (model.UserAnswers != null ? string.Join(", ", model.UserAnswers) : "null"));
+            // Initialize UserAnswers if it is null
+            if (model.UserAnswers == null)
+            {
+                model.UserAnswers = new List<string>();
+            }
+
+            // Initialize Questions if it is null
+            if (model.TriviaQuestions == null)
+            {
+                model.TriviaQuestions = new List<TriviaQuestionModel>();
+            }
+
+            for (var i = 0; i < model.UserAnswers.Count; i++)
+            {
+                if (i< model.TriviaQuestions.Count && model.UserAnswers[i] == model.TriviaQuestions[i].Correct_Answer)
                 {
-                    // Safeguard against mismatched lengths
-                    if (i < correct_Answer.Count && userAnswers[i] == correct_Answer[i])
-                    {
-                        score++;
-                    }
+                    model.Score++;
                 }
             }
-            else
-            {
-                // Handle the case where correct_Answers is null
-                ModelState.AddModelError(string.Empty, "Correct answers are not available.");
-            }
-
-            // Store the score in ViewBag for the view to display
-            ViewBag.Score = score;
-
-            // Return the Result view, passing userAnswers as the model
-            return View("Result", userAnswers);
+            return View("Result", model);
         }
 
+
+
     }
+
 }
