@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using WebQuizApp.Models;
+using WebQuizApp.ViewModels;
 using WebQuizApp.Services;
 
 namespace WebQuizApp.Controllers
@@ -13,11 +13,13 @@ namespace WebQuizApp.Controllers
         {
             _triviaService = triviaService;
         }
+
         [HttpGet]
         public IActionResult QuizSettings()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> StartQuiz(TriviaSettingsModel settings)
         {
@@ -30,11 +32,7 @@ namespace WebQuizApp.Controllers
             ViewBag.Countdown = settings.Countdown;
             return View("StartQuiz", model);
         }
-        //[HttpGet]
-        //public IActionResult SubmitAnswers()
-        //{
-        //    return View(new QuizViewModel());
-        //}
+        
         [HttpPost]
         public IActionResult Result(QuizViewModel model)
         {
@@ -42,16 +40,10 @@ namespace WebQuizApp.Controllers
            // Console.WriteLine("Questions: " + (model.TriviaQuestions != null ? string.Join(", ", model.TriviaQuestions.Select(q => q.Question)) : "null"));
             //Console.WriteLine("UserAnswers: " + (model.UserAnswers != null ? string.Join(", ", model.UserAnswers) : "null"));
             // Initialize UserAnswers if it is null
-            if (model.UserAnswers == null)
-            {
-                model.UserAnswers = new List<string>();
-            }
+            model.UserAnswers ??= new List<string>();
 
             // Initialize Questions if it is null
-            if (model.TriviaQuestions == null)
-            {
-                model.TriviaQuestions = new List<TriviaQuestionModel>();
-            }
+            model.TriviaQuestions ??= new List<TriviaQuestionModel>();
 
             for (var i = 0; i < model.UserAnswers.Count; i++)
             {
@@ -62,8 +54,6 @@ namespace WebQuizApp.Controllers
             }
             return View("Result", model);
         }
-
-
 
     }
 
