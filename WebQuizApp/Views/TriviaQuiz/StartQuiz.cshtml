@@ -9,14 +9,14 @@
         @for (int i = 0; i < Model.TriviaQuestions.Count; i++)
         {
             <div>
-                <p>@Model.TriviaQuestions[i].Question</p>
+                <p>@Html.Encode(@Model.TriviaQuestions[i].Question)</p>
                 @foreach (var answer in Model.TriviaQuestions[i].Incorrect_Answers)
                 {
-                    <input type="radio" name="userAnswers[@i]" value="@answer" required /> @answer
+                    <input type="radio" name="userAnswers[@i]" value="@answer" required /> @Html.Encode(@answer)
 
                     <br />
                 }
-                <input type="radio" name="userAnswers[@i]" value="@Model.TriviaQuestions[i].Correct_Answer" required /> @Model.TriviaQuestions[i].Correct_Answer<br />
+                <input type="radio" name="userAnswers[@i]" value="@Model.TriviaQuestions[i].Correct_Answer" required /> @Html.Encode(@Model.TriviaQuestions[i].Correct_Answer)<br />
             </div>
         }
             @* Hidden fields to ensure the questions are passed back to the controller *@

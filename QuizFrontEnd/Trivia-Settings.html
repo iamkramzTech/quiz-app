@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kramz | QuizApp - The Ultimate Trivia Quiz</title>
+    
+  
+  <link rel="stylesheet" href="./bootstrap-5.2.3/dist/css/bootstrap.min.css">
+  <script defer src="bootstrap-5.2.3//dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="/">QuizApp</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <!-- <div class="collapse navbar-collapse" id="navbarCollapse">    
+        
+      </div> -->
+      <div class="text-end">
+        <button type="button" class="btn btn-success" style="font-weight: 600; background-color: #00B5AD;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+        </svg>
+         Install App
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="d-flex justify-content-center">
+    <div class="card shadow-lg" style="width: 68rem;">
+      <div class="card-body">
+        <h1>The Ultimate Trivia Quiz</h1>
+        <hr>
+        <form method="post">
+          <div class="mb-3">
+            <label for="category" class="form-label">In which category do you want to play the quiz?</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option disabled>SELECT QUIZ CATEGORY</option>
+              <option selected value="0">Any Category</option>
+              <option value="9">General Knowledge</option>
+              <option value="10">Entertainment: Books</option>
+              <option value="11">Entertainment: Films</option>
+              <option value="31">Entertainment: Japanese Anime & Manga</option>
+              <option value="18">Science: Computers</option>
+              <option value="19">Science: Mathematics</option>
+              <option value="20">Mythology</option>
+              <option value="21">Sports</option>
+              <option value="22">Geography</option>
+              <option value="23">History</option>
+              <option value="24">Politics</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="qty" class="form-label">How many questions do you want in your quiz?</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="exampleSelect">
+              <option disabled>SELECT NO. OF QUESTIONS</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected>5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <!-- <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+              <option value="32">32</option>
+              <option value="33">33</option>
+              <option value="34">34</option>
+              <option value="35">35</option>
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38">38</option>
+              <option value="39">39</option>
+              <option value="40">40</option>
+              <option value="41">41</option>
+              <option value="42">42</option>
+              <option value="43">43</option>
+              <option value="44">44</option>
+              <option value="45">45</option>
+              <option value="46">46</option>
+              <option value="47">47</option>
+              <option value="48">48</option>
+              <option value="49">49</option>
+              <option value="50">50</option> -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="difficulty" class="form-label">How difficult do you want your quiz to be?</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option disabled>SELECT DIFFICULTY LEVEL</option>
+              <option value="">Any Difficulty</option>
+              <option selected value="">Easy</option>          
+              <option value="">Medium</option>
+              <option value="">Hard</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Which type of questions do you want in your quiz?</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option disabled>SELECT QUESTIONS TYPE</option>
+              <option value="0">Any Type</option>
+              <option selected value="multiple">Multiple Choice</option>          
+              <option value="boolean">True / False</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="minutes" class="form-label">Please select the countdown time for your quiz.</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option disabled>SELECT MINUTES</option>
+              <option value="1">1</option>
+              <option selected value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <!-- <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option> -->
+              <!-- <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option> -->
+            </select>
+            </div>
+            
+          <button type="submit" name="submit"  class="btn" style="background-color: #2185D0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+            </svg>
+            Play  Now
+            </button>
+          </form>
+      </div>
+    </div>
+  </div>
+ 
+  
+</body>
+</html>

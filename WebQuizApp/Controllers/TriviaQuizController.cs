@@ -2,6 +2,7 @@
 using WebQuizApp.Models;
 using WebQuizApp.ViewModels;
 using WebQuizApp.Services;
+using System.Net;
 
 namespace WebQuizApp.Controllers
 {
@@ -20,11 +21,17 @@ namespace WebQuizApp.Controllers
             return View();
         }
 
+        public IActionResult BackToIndex()
+        {
+            return RedirectToAction("QuizSettings","TriviaQuiz");
+        }
+
         [HttpPost]
         public async Task<IActionResult> StartQuiz(TriviaSettingsModel settings)
         {
             var questions = await _triviaService.GetQuestionsAsync(settings.NumOfQuestion, settings.Category, settings.Difficulty, settings.Type);
 
+            //var htmlDecodeQuestions = WebUtility.HtmlDecode(questions);
             var model = new QuizViewModel
             {
                 TriviaQuestions = questions
