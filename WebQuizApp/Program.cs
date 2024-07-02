@@ -7,62 +7,15 @@ namespace WebQuizApp
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddMvc();
-
-            //Configure the distributed memory cache
-            builder.Services.AddDistributedMemoryCache();
-
-            // Add session services
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); //adjust timeout as needed
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
-            // Add TempData providers
-            builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            builder.Services.AddHttpClient<TriviaService>();
-
-            var app = builder.Build();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            //app.UseStaticFiles() should be placed before app.UseRouting().
-            app.UseHttpsRedirection();
-
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            // UseSession should be placed before any middleware that might use session state
-            app.UseSession();
-
-            // If it has any authorization middleware, it should go here.
-            // app.UseAuthorization();
-
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Quiz}/{action=StartQuiz}/{id?}");
-
-            app.UseEndpoints(endPoints =>
-            {
-                endPoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=TriviaQuiz}/{action=QuizSettings}/{id?}");
-            });
-            app.Run();
+           
+           CreateHostBuilder(args).Build().Run();
         }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }
